@@ -45,7 +45,7 @@ window.onload = function () {
       // Create the <a> element
       var madeBy = document.createElement("a");
       madeBy.setAttribute("id", "made_by");
-      madeBy.setAttribute("href", "https://example.com"); // Set the link URL
+      madeBy.setAttribute("href", "https://www.facebook.com/Nazim.Natsuo"); // Set the link URL
       madeBy.setAttribute("target", "_blank"); // Open link in a new tab
       madeBy.textContent = "Made by Nazim";
 
