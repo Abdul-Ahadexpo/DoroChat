@@ -42,7 +42,36 @@ window.onload = function () {
       title.setAttribute("id", "title");
       title.textContent = "~DoroChat~";
 
-      title_inner_container.append(title);
+      // Create the <a> element
+      var madeBy = document.createElement("a");
+      madeBy.setAttribute("id", "made_by");
+      madeBy.setAttribute("href", "https://example.com"); // Set the link URL
+      madeBy.setAttribute("target", "_blank"); // Open link in a new tab
+      madeBy.textContent = "Made by Nazim";
+
+      // Apply flexbox to align them in a column
+      var titleContainerStyle = document.createElement("style");
+      titleContainerStyle.textContent = `
+  #title_inner_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align items */
+    gap: 10px; /* Add spacing between elements */
+  }
+  #made_by {
+    text-decoration: none; /* Remove underline */
+   
+    font-size: 14px; /* Adjust font size */
+  }
+  #made_by:hover {
+    text-decoration: underline; /* Add underline on hover */
+  }
+`;
+
+      document.head.append(titleContainerStyle);
+
+      // Append the elements
+      title_inner_container.append(title, madeBy); // Append both the title and the link
       title_container.append(title_inner_container);
       document.body.append(title_container);
     }
