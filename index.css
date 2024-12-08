@@ -7,6 +7,11 @@ body {
   overflow: hidden;
   animation: blur 0.5s ease-out;
 }
+#made_by {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-weight: 300;
+  color: #00103b;
+}
 * {
   outline: none;
   border: none;
