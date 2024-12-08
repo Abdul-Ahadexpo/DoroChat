@@ -141,7 +141,6 @@ window.onload = function () {
 
       var chat_input_container = document.createElement("div");
       chat_input_container.setAttribute("id", "chat_input_container");
-
       var chat_input_send = document.createElement("button");
       chat_input_send.setAttribute("id", "chat_input_send");
       chat_input_send.setAttribute("disabled", true);
@@ -153,16 +152,27 @@ window.onload = function () {
       chat_input.setAttribute("maxlength", 1000);
       // Get the name of the user
       chat_input.placeholder = `${parent.get_name()}. Say something...`;
-      chat_input.onkeyup = function () {
+
+      // Handle key events, including the Enter key
+      chat_input.onkeyup = function (event) {
         if (chat_input.value.length > 0) {
           chat_input_send.removeAttribute("disabled");
           chat_input_send.classList.add("enabled");
+
+          // Check if the Enter key is pressed (keyCode 13 or "Enter")
+          if (event.key === "Enter" || event.keyCode === 13) {
+            chat_input_send.click(); // Trigger the button click programmatically
+          }
+
+          // Add a click event to send the message
           chat_input_send.onclick = function () {
             chat_input_send.setAttribute("disabled", true);
             chat_input_send.classList.remove("enabled");
+
             if (chat_input.value.length <= 0) {
               return;
             }
+
             // Enable the loading circle in the 'chat_content_container'
             parent.create_load("chat_content_container");
             // Send the message. Pass in the chat_input.value
@@ -173,6 +183,7 @@ window.onload = function () {
             chat_input.focus();
           };
         } else {
+          chat_input_send.setAttribute("disabled", true);
           chat_input_send.classList.remove("enabled");
         }
       };
