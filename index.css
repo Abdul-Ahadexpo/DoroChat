@@ -469,3 +469,34 @@ body {
   background-color: #d64045;
   cursor: pointer;
 }
+/* notification_toggle button*/
+#notification_toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  font-family: "Varela Round", sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  width: 50%;
+  color: #fff;
+  background-color: #1d3354;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#notification_toggle:hover {
+  background-color: #d64045;
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+#notification_toggle:active {
+  background-color: #b5303a;
+  transform: scale(0.9);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}

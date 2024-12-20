@@ -19,6 +19,7 @@ window.onload = function () {
   class MEME_CHAT {
     constructor() {
       this.room = "World Chat"; // Default room
+      this.notificationsEnabled = this.get_notifications_enabled();
     }
 
     // Home() is used to create the home page
@@ -55,6 +56,20 @@ window.onload = function () {
       madeBy.setAttribute("target", "_blank"); // Open link in a new tab
       madeBy.textContent = "Made by Nazim";
 
+      // Create the notification toggle button
+      var notificationToggle = document.createElement("button");
+      notificationToggle.setAttribute("id", "notification_toggle");
+      notificationToggle.textContent = this.notificationsEnabled
+        ? "Notification Is ON"
+        : "Notification Is OFF";
+      notificationToggle.onclick = () => {
+        this.notificationsEnabled = !this.notificationsEnabled;
+        this.save_notifications_enabled(this.notificationsEnabled);
+        notificationToggle.textContent = this.notificationsEnabled
+          ? "Notification Is ON"
+          : "Notification Is OFF";
+      };
+
       // Apply flexbox to align them in a column
       var titleContainerStyle = document.createElement("style");
       titleContainerStyle.textContent = `
@@ -77,7 +92,7 @@ window.onload = function () {
       document.head.append(titleContainerStyle);
 
       // Append the elements
-      title_inner_container.append(title, madeBy); // Append both the title and the link
+      title_inner_container.append(title, madeBy, notificationToggle); // Append both the title and the link
       title_container.append(title_inner_container);
       document.body.append(title_container);
     }
@@ -283,6 +298,16 @@ window.onload = function () {
       this.room = room;
     }
 
+    // Save notifications enabled state to localStorage
+    save_notifications_enabled(enabled) {
+      localStorage.setItem("notificationsEnabled", enabled);
+    }
+
+    // Get notifications enabled state from localStorage
+    get_notifications_enabled() {
+      return localStorage.getItem("notificationsEnabled") === "true";
+    }
+
     // Sends message/saves the message to firebase database
     send_message(message) {
       var parent = this;
@@ -471,7 +496,11 @@ window.onload = function () {
             chat_content_container.append(message_container);
 
             // Play notification sound for other users
-            if (name !== parent.get_name() && data.name !== parent.get_name()) {
+            if (
+              parent.notificationsEnabled &&
+              name !== parent.get_name() &&
+              data.name !== parent.get_name()
+            ) {
               var audio = new Audio("noti.wav");
               audio.play();
             }
@@ -494,4 +523,3 @@ window.onload = function () {
     app.chat();
   }
 };
-
