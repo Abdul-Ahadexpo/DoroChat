@@ -469,6 +469,12 @@ window.onload = function () {
 
             // Append the message container to the chat content container
             chat_content_container.append(message_container);
+
+            // Play notification sound for other users
+            if (name !== parent.get_name() && data.name !== parent.get_name()) {
+              var audio = new Audio("noti.wav");
+              audio.play();
+            }
           });
 
           // Go to the recent message at the bottom of the container
@@ -488,3 +494,4 @@ window.onload = function () {
     app.chat();
   }
 };
+
