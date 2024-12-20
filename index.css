@@ -86,7 +86,7 @@ body {
 
 #chat_input_container {
   width: 100%;
-  height: 10%;
+  height: 80px;
   border-bottom: 2px dashed #1d3354;
   background-color: transparent;
   padding: 15px;
@@ -364,35 +364,12 @@ body {
 .reply_link:hover {
   color: #0056b3;
   text-decoration: underline;
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
-#room_input {
-  width: 100%;
-  height: 40px;
-  color: #1d3354;
-  font-family: "Varela Round", sans-serif;
-  font-size: 15px;
-  font-weight: bold;
-  text-align: center;
-  background-color: transparent;
-  border-bottom: 2px dashed #1d3354;
-  transition: all 0.3s ease;
-}
-
-#room_input:focus {
-  border-bottom: 2px solid #d64045;
-  box-shadow: 0 10px 30px -17px #d64045;
-}
-
-#room_input::placeholder {
-  color: #ccc;
-  font-style: italic;
-}
-
-#room_input:hover {
-  background-color: #f0f0f0;
-  border-bottom: 2px solid #1d3354;
+.reply_link:active {
+  color: #003f7f;
+  transform: scale(0.9);
 }
 
 #join_input_container {
@@ -404,7 +381,7 @@ body {
 }
 
 #join_input {
-  width: 100%;
+  width: 300px;
   height: 40px;
   color: #1d3354;
   font-family: "Varela Round", sans-serif;
@@ -440,8 +417,9 @@ body {
 }
 
 #join_button {
-  width: 100%;
+  width: 200px;
   height: 40px;
+  margin-top: 20px;
   font-family: "Varela Round", sans-serif;
   font-size: 15px;
   font-weight: bold;
@@ -454,8 +432,7 @@ body {
 }
 
 #join_button:hover {
-  background-color: #d64045;
-  box-shadow: 0 10px 20px -10px #d64045;
+  box-shadow: 0 10px 20px -10px #282c6b;
   transform: translateY(-3px);
 }
 
@@ -499,4 +476,50 @@ body {
   background-color: #b5303a;
   transform: scale(0.9);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+/* Room input */
+
+#room_input_container {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#room_input {
+  width: 300px;
+  height: 40px;
+  color: #1d3354;
+  font-family: "Varela Round", sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  background-color: transparent;
+  border-bottom: 2px dashed #1d3354;
+  transition: all 0.3s ease;
+}
+
+#room_input:focus {
+  border-bottom: 2px solid #d64045;
+  box-shadow: 0 10px 30px -17px #d64045;
+}
+
+#room_input::placeholder {
+  color: #ccc;
+  font-style: italic;
+}
+
+#room_input:hover {
+  background-color: #f0f0f0;
+  border-bottom: 2px solid #1d3354;
+}
+
+@media (max-width: 467px) {
+  #room_input {
+    width: 80%;
+  }
+  #join_input {
+    width: 80%;
+  }
 }
