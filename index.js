@@ -119,7 +119,7 @@ window.onload = function () {
 
       var join_input = document.createElement("input");
       join_input.setAttribute("id", "join_input");
-      join_input.setAttribute("maxlength", 28);
+      join_input.setAttribute("maxlength", 15);
       join_input.placeholder = "Whats is your name?...";
 
       var room_input_container = document.createElement("div");
