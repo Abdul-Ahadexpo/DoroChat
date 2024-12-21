@@ -47,7 +47,7 @@ window.onload = function () {
 
       var title = document.createElement("h1");
       title.setAttribute("id", "title");
-      title.textContent = "~DoroChat~";
+      title.textContent = "~BroChat~";
 
       // Create the <a> element
       var madeBy = document.createElement("a");
