@@ -228,7 +228,7 @@ body {
   border-radius: 5px;
 }
 
-@media (max-width: 467px) {
+@media (max-width: 480px) {
   body {
     font-size: 10px;
     margin: 0;
@@ -413,7 +413,7 @@ body {
   border-bottom: 2px solid #1d3354;
 }
 
-@media (max-width: 467px) {
+@media (max-width: 480px) {
   #room_input {
     width: 80%;
   }
