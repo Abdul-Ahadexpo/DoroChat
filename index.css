@@ -555,13 +555,12 @@ body {
   position: fixed;
   bottom: 10px;
   right: 20px;
-  width: 50px;
+  width: 200px;
   height: 50px;
   font-family: "Varela Round", sans-serif;
   font-size: 20px;
   font-weight: bold;
   text-align: center;
-  width: 200px;
   color: #fff;
   background-color: #1d3354;
   border-radius: 16px;
@@ -595,15 +594,78 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* hide_button */
+#hide_button {
+  position: fixed;
+  bottom: 10px;
+  right: 430px;
+  width: 200px;
+  height: 50px;
+  font-family: "Varela Round", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  color: #1d3354;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px 12px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease,
+    background-color 0.4s ease;
+  cursor: pointer;
+}
+
+/* Hover Animation */
+#hide_button:hover {
+  transform: scale(1.1) rotate(3deg); /* Grows slightly and tilts */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Deepens shadow */
+  background: rgba(240, 240, 255, 1); /* Subtle color change */
+}
+
+/* Focus State */
+#hide_button:focus {
+  outline: none;
+  transform: scale(1.05); /* Slight scale effect */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 0 8px #1d3354; /* Glow effect */
+}
+
+/* Active State */
+#hide_button:active {
+  transform: scale(0.95); /* Shrinks slightly to simulate a press */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Less intense shadow */
+}
+
+/* Subtle Pulsing Animation */
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+#hide_button:hover {
+  animation: pulse 1.5s infinite ease-in-out; /* Pulses when hovered */
+}
+
 @media (max-width: 767px) {
+  #hide_button {
+    right: 20px;
+    width: 150px;
+    height: 40px;
+    font-size: 16px;
+  }
+
   #online_users_container {
     right: 20px;
-    bottom: 80px;
+    bottom: 100px;
     padding: 8px 15px;
   }
 
   #notification_toggle {
-    bottom: 10px;
+    bottom: 54px;
     right: 20px;
     width: 150px;
     height: 40px;
@@ -611,13 +673,20 @@ body {
   }
 
   #made_by {
-    bottom: 120px;
+    bottom: 140px;
     right: 20px;
     padding: 5px 8px;
   }
 }
 
 @media (max-width: 480px) {
+  #hide_button {
+    right: 50%;
+    width: 150px;
+    height: 35px;
+    font-size: 14px;
+  }
+
   #online_users_container {
     right: 10px;
     bottom: 50px;
@@ -637,10 +706,10 @@ body {
     right: 10px;
     padding: 3px 5px;
   }
+
   #notification_toggle:hover {
     background-color: #1d3354;
-    transform: translateY(-0px);
+    transform: translateY(0);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
   }
 }
-
