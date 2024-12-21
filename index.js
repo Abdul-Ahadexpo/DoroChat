@@ -119,7 +119,7 @@ window.onload = function () {
 
       var join_input = document.createElement("input");
       join_input.setAttribute("id", "join_input");
-      join_input.setAttribute("maxlength", 15);
+      join_input.setAttribute("maxlength", 28);
       join_input.placeholder = "Whats is your name?...";
 
       var room_input_container = document.createElement("div");
@@ -389,6 +389,15 @@ window.onload = function () {
         return;
       }
 
+      // Get the current time in 12-hour format
+      var currentDate = new Date();
+      var hours = currentDate.getHours();
+      var minutes = currentDate.getMinutes().toString().padStart(2, "0");
+      var ampm = hours >= 12 ? "PM" : "AM";
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      var time = `${hours}:${minutes} ${ampm}`;
+
       // Get the firebase database value
       db.ref(`chats/${parent.room}/`).once("value", function (message_object) {
         // This index is mordant. It will help organize the chat in order
@@ -398,6 +407,7 @@ window.onload = function () {
             name: parent.get_name(),
             message: message,
             index: index,
+            time: time,
           })
           .then(function () {
             // After we send the chat refresh to get the new messages
@@ -534,12 +544,16 @@ window.onload = function () {
             } else {
               // Get the current time or default to 00:00 if no message
               var currentDate = new Date();
-              var hours = currentDate.getHours().toString().padStart(2, "0");
+              var hours = currentDate.getHours();
               var minutes = currentDate
                 .getMinutes()
                 .toString()
                 .padStart(2, "0");
-              message_time.textContent = `${hours}:${minutes}` || "00:00"; // Fallback to "00:00"
+              var ampm = hours >= 12 ? "PM" : "AM";
+              hours = hours % 12;
+              hours = hours ? hours : 12; // the hour '0' should be '12'
+              message_time.textContent =
+                `${hours}:${minutes} ${ampm}` || "00:00"; // Fallback to "00:00"
             }
 
             // Create the reply link
@@ -548,7 +562,7 @@ window.onload = function () {
             reply_link.textContent = "Reply";
             reply_link.href = "#";
             reply_link.onclick = function () {
-              chat_input.value = `${message}:  `; // Add the message to the chat input`;
+              chat_input.value = `${message}:  `; // Add the message to the chat input
               chat_input.focus();
             };
 
@@ -566,6 +580,14 @@ window.onload = function () {
             chat_content_container.append(message_container);
 
             // Play notification sound for other users
+            if (
+              parent.notificationsEnabled &&
+              name !== parent.get_name() &&
+              data.name !== parent.get_name()
+            ) {
+              var audio = new Audio("noti.wav");
+              audio.play();
+            }
             if (
               parent.notificationsEnabled &&
               name !== parent.get_name() &&
