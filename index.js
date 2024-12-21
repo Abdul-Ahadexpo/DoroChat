@@ -284,6 +284,26 @@ window.onload = function () {
 
       chat_inner_container.append(online_users_container);
 
+      // Create the hide/unhide button
+      var hide_button = document.createElement("button");
+      hide_button.setAttribute("id", "hide_button");
+      hide_button.textContent = "Hide Myself";
+      hide_button.style.marginTop = "10px";
+      hide_button.onclick = function () {
+        if (hide_button.textContent === "Hide Myself") {
+          userRef.remove();
+          hide_button.textContent = "Unhide Myself";
+        } else {
+          userRef.set({
+            name: app.get_name(),
+            room: app.get_room(),
+          });
+          hide_button.textContent = "Hide Myself";
+        }
+      };
+
+      chat_inner_container.append(hide_button);
+
       // Function to update online users
       function updateOnlineUsers() {
         db.ref("online_users/").on("value", function (snapshot) {
