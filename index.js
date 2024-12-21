@@ -52,7 +52,7 @@ window.onload = function () {
       // Create the <a> element
       var madeBy = document.createElement("a");
       madeBy.setAttribute("id", "made_by");
-      madeBy.setAttribute("href", "https://www.facebook.com/@doraemonind/"); // Set the link URL
+      madeBy.setAttribute("href", "https://www.facebook.com/Doraemon"); // Set the link URL
       madeBy.setAttribute("target", "_blank"); // Open link in a new tab
       madeBy.textContent = "Made by Nazim";
 
@@ -269,6 +269,56 @@ window.onload = function () {
         // Go back to home page
         parent.home();
       };
+
+      // Create the online users container
+      var online_users_container = document.createElement("div");
+      online_users_container.setAttribute("id", "online_users_container");
+      online_users_container.innerHTML = "Online Users: 0";
+      online_users_container.style.textAlign = "center";
+      online_users_container.style.color = "black";
+      online_users_container.style.fontSize = "14px";
+      online_users_container.style.marginTop = "10px";
+      online_users_container.style.fontWeight = "bold";
+      online_users_container.style.textTransform = "uppercase";
+      online_users_container.style.fontFamily = "Arial, sans-serif";
+
+      chat_inner_container.append(online_users_container);
+
+      // Function to update online users
+      function updateOnlineUsers() {
+        db.ref("online_users/").on("value", function (snapshot) {
+          var onlineUsers = snapshot.val() || {};
+          var userCount = Object.keys(onlineUsers).length;
+          var userList = Object.values(onlineUsers)
+            .map((user) => `${user.name} (${user.room})`)
+            .join("<br>"); // Use <br> to put each user on a new line
+          online_users_container.innerHTML = `
+        <details class="dropdown">
+          <summary class="btn m-1 onlineUserDropdownName">Online Users (${userCount})</summary>
+          <ul class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+          ${Object.values(onlineUsers)
+            .map(
+              (user) =>
+                `<li><a class="usernameID">${user.name} (${user.room})</a></li>`
+            )
+            .join("")}
+          </ul>
+        </details>`;
+        });
+      }
+
+      // Call the function to update online users
+      updateOnlineUsers();
+
+      // Add the current user to the online users list
+      var userRef = db.ref("online_users/" + app.get_name());
+      userRef.set({
+        name: app.get_name(),
+        room: app.get_room(),
+      });
+
+      // Remove the user from the online users list when they disconnect
+      userRef.onDisconnect().remove();
 
       chat_logout_container.append(chat_logout);
       chat_input_container.append(chat_input, chat_input_send);
